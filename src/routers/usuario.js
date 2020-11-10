@@ -1,7 +1,8 @@
 const express = require('express')
 const usuarios = require('../models/usuario')
-const { Op } = require("sequelize");
+const { Op } = require("sequelize")
 const usuarioRouter = express.Router() 
+
 
 usuarioRouter.get('/', (req, res) => {
     usuarios.findAll().then(usuario => {
@@ -10,6 +11,7 @@ usuarioRouter.get('/', (req, res) => {
         res.json(e)
     })
 })
+
 
 usuarioRouter.get('/:id', (req, res) => {
     usuarios.findOne({ where: req.params }).then(usuario => {
@@ -28,6 +30,7 @@ usuarioRouter.patch('/:id', (req,res) => {
     })
 })
 
+
 usuarioRouter.delete('/:id', (req,res) => {
     usuarios.destroy({ where: req.params }).then(usuario => {
         res.json(usuario)
@@ -35,6 +38,7 @@ usuarioRouter.delete('/:id', (req,res) => {
         res.json(e)
     })
 })
+
 
 usuarioRouter.post('/', (req, res) => {
     usuarios.create(req.body).then(usuario => {

@@ -1,14 +1,17 @@
 const express = require('express')
 const productos = require('../models/producto')
 const productoRouter = express.Router() 
+const auth = require('../auth/auth')
 
-productoRouter.get('/', (req, res) => {
+
+productoRouter.get('/', auth, (req, res) => {
     productos.findAll().then(producto => {
         res.json(producto)
     }).catch(e => {
         res.json(e)
     })
 })
+
 
 productoRouter.get('/:id', (req, res) => {
     productos.findOne({ where: req.params }).then(producto => {
@@ -27,6 +30,7 @@ productoRouter.patch('/:id', (req,res) => {
     })
 })
 
+
 productoRouter.delete('/:id', (req,res) => {
     productos.destroy({ where: req.params }).then(producto => {
         res.json(producto)
@@ -35,6 +39,7 @@ productoRouter.delete('/:id', (req,res) => {
     })
 })
 
+
 productoRouter.post('/', (req, res) => {
     productos.create(req.body).then(producto => {
         res.json(producto)
@@ -42,5 +47,6 @@ productoRouter.post('/', (req, res) => {
         res.json(e)
     })
 })
+
 
 module.exports = productoRouter;
